@@ -10,12 +10,17 @@ class ChargeRepository(private val wordDao: ChargeDao) {
 
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
-    val allWords: LiveData<List<Charge>> = wordDao.getAll()
+    val allCharges: LiveData<List<Charge>> = wordDao.getAll()
+
+
+    fun getChargesByCategory(charge: String) : LiveData<List<Charge>>{
+        return wordDao.getChargesByCategory(charge)
+    }
 
 
     // The suspend modifier tells the compiler that this must be called from a
     // coroutine or another suspend function.
-    fun insert(word: Charge) {
-        wordDao.insert(word)
+    fun insert(charge: Charge) {
+        wordDao.insert(charge)
     }
 }

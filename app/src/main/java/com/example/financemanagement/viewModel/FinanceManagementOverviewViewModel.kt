@@ -34,7 +34,9 @@ class FinanceManagementOverviewViewModel(application: Application) : AndroidView
         }
     }
 
-
+    fun  getCharges () : LiveData<List<Charge>>? {
+        return  repository.allCharges
+    }
 
     // The implementation of insert() is completely hidden from the UI.
     // We don't want insert to block the main thread, so we're launching a new
@@ -64,26 +66,43 @@ class FinanceManagementOverviewViewModel(application: Application) : AndroidView
             val chargeCategory = ChargeCategory("Chirie si servicii", 340)
             chargeCategoryAggregation.chargeCategory = chargeCategory
             chargeCategoryAggregation.totalAmount = 340
+
             val chargeCategoryAggregation1 = ChargeCategoryAggregation()
             val chargeCategory1 = ChargeCategory("Mincare", 200)
             chargeCategoryAggregation1.chargeCategory = chargeCategory1
             chargeCategoryAggregation1.totalAmount = 200
+
             val chargeCategoryAggregation2 = ChargeCategoryAggregation()
             val chargeCategory2 = ChargeCategory("Calatorii", 200)
             chargeCategoryAggregation2.chargeCategory = chargeCategory2
             chargeCategoryAggregation2.totalAmount = 340
+
             val chargeCategoryAggregation3 = ChargeCategoryAggregation()
             val chargeCategory3 = ChargeCategory("clothing", 100)
             chargeCategoryAggregation3.chargeCategory = chargeCategory3
             chargeCategoryAggregation3.totalAmount = 200
+
             val chargeCategoryAggregation4 = ChargeCategoryAggregation()
             val chargeCategory4 = ChargeCategory("Transport", 25)
             chargeCategoryAggregation4.chargeCategory = chargeCategory4
             chargeCategoryAggregation4.totalAmount = 0
+
             val chargeCategoryAggregation6 = ChargeCategoryAggregation()
             val chargeCategory6 = ChargeCategory("Altele", 100)
             chargeCategoryAggregation6.chargeCategory = chargeCategory6
             chargeCategoryAggregation6.totalAmount = 0
+
+            val chargeCategoryAggregation7 = ChargeCategoryAggregation()
+            val chargeCategory7 = ChargeCategory("afdsfsa", 100)
+            chargeCategoryAggregation7.chargeCategory = chargeCategory7
+            chargeCategoryAggregation7.totalAmount = 0
+
+            val chargeCategoryAggregation8 = ChargeCategoryAggregation()
+            val chargeCategory8 = ChargeCategory("jsfgss", 100)
+            chargeCategoryAggregation8.chargeCategory = chargeCategory8
+            chargeCategoryAggregation8.totalAmount = 0
+
+
 
             categoryAggregations.add(chargeCategoryAggregation)
             categoryAggregations.add(chargeCategoryAggregation1)
@@ -91,6 +110,8 @@ class FinanceManagementOverviewViewModel(application: Application) : AndroidView
             categoryAggregations.add(chargeCategoryAggregation3)
             categoryAggregations.add(chargeCategoryAggregation4)
             categoryAggregations.add(chargeCategoryAggregation6)
+            categoryAggregations.add(chargeCategoryAggregation7)
+            categoryAggregations.add(chargeCategoryAggregation8)
 
             return categoryAggregations
         }

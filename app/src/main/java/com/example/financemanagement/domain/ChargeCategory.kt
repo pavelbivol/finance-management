@@ -22,6 +22,11 @@ class ChargeCategory {
     constructor()
 
     @Ignore
+    constructor(name: String){
+        this.name = name
+    }
+
+    @Ignore
     constructor(name: String, expectedAmount: Long) {
         this.name = name
         this.expectedAmount = expectedAmount

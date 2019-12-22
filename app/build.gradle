@@ -67,18 +67,23 @@ dependencies {
     // Extensions = ViewModel + LiveData
     implementation "android.arch.lifecycle:extensions:1.1.1"
     kapt "android.arch.lifecycle:compiler:1.1.1"
-// Room
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-rc03'
+
+
+    // Room
     implementation "android.arch.persistence.room:runtime:1.1.1"
     kapt "android.arch.persistence.room:compiler:1.1.1"
-
-
-    // Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
-
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
 
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-rc03'
+    //Debuging databases
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
+
+
+    //Recicle View
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation "androidx.recyclerview:recyclerview-selection:1.1.0-beta01"
 
 }

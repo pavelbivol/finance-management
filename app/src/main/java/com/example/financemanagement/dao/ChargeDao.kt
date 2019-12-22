@@ -12,6 +12,9 @@ interface ChargeDao {
     @Query("SELECT * From charges")
     fun getAll() : LiveData<List<Charge>>
 
+    @Query("SELECT * From charges WHERE name LIKE :category")
+    fun getChargesByCategory(category: String) : LiveData<List<Charge>>
+
     @Insert
     fun insert(charges : Charge)
 

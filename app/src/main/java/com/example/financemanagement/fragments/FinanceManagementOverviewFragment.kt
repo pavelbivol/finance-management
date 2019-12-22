@@ -7,17 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.financemanagement.R
 import com.example.financemanagement.chart.ChargeCategoriesChart
 import com.example.financemanagement.chart.listeners.ChartValueSelectListener
 import com.example.financemanagement.domain.ChargeCategory
-import com.example.financemanagement.domain.ChargeCategoryAggregation
 import com.example.financemanagement.viewModel.FinanceManagementOverviewViewModel
-import java.util.*
 import androidx.lifecycle.Observer
 import com.example.financemanagement.domain.Charge
+import org.w3c.dom.Text
+import java.util.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -33,25 +34,6 @@ private const val ARG_PARAM2 = "param2"
  * Use the [FinanceManagementOverviewFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class FinanceManagementOverviewFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -70,23 +52,28 @@ class FinanceManagementOverviewFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
+        //Am detectat o categorie noua , cit ati vrea sa cheltuiti in aceasta categorie ?/
+
         val view : View = inflater
                 .inflate(R.layout.fragment_finance_management_overview, container, false)
         val chargeCategoriesChart = view.findViewById<ChargeCategoriesChart>(R.id.RadarChart)
-        val addButton : Button = view.findViewById(R.id.add_button)
+        val spendButton : Button = view.findViewById(R.id.spend_button)
         /*val retrieveButton : Button = view.findViewById(R.id.retrieve)*/
         val viewModel = ViewModelProviders.of(requireActivity())
                 .get(FinanceManagementOverviewViewModel::class.java)
 
 
+        var totalSpend: TextView = view.findViewById(R.id.total_amount_spend)
 
 
+        var charge: Charge = Charge()
+        charge.category = ChargeCategory("Mincare")
+        charge.chargeAmount = 673
+        charge.chargeDescription = "cicka"
+        charge.date = Date()
 
 
-
-
-        addButton.setOnClickListener { v -> viewModel.insert(Charge()) }
-        //retrieveButton.setOnClickListener { v -> viewModel.insert(ChargeCategory()) }
+        spendButton.setOnClickListener { v -> viewModel.insert(charge) }
 
 
         chargeCategoriesChart.setOnChartValueSelectedListener(ChartValueSelectListener(chargeCategoriesChart))
@@ -94,6 +81,16 @@ class FinanceManagementOverviewFragment : Fragment() {
         viewModel.chargeList.observe(this, Observer { charges ->
             chargeCategoriesChart.setData(charges)
         })
+
+
+        viewModel.getCharges()?.observe(this, Observer { charges ->
+
+            var amount = charges.map { charge -> charge.chargeAmount }.filter { l -> l != null }.sumByDouble { l -> l!!.toDouble() }
+            totalSpend.setText(amount.toString())
+
+        })
+
+
         return view
 
     }

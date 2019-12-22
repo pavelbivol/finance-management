@@ -81,14 +81,15 @@ class ChargeCategoriesChart : RadarChart {
 
     private fun configureLegend() {
         val l = legend
-        l.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+        l.isEnabled = false
+        /*l.verticalAlignment = Legend.LegendVerticalAlignment.TOP
         l.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
         l.orientation = Legend.LegendOrientation.HORIZONTAL
         l.setDrawInside(false)
         //l.setTypeface(tfLight);
         l.xEntrySpace = 7f
         l.yEntrySpace = 5f
-        l.textColor = Color.WHITE
+        l.textColor = Color.WHITE*/
     }
 
     private fun createMarkerView() {
@@ -110,11 +111,13 @@ class ChargeCategoriesChart : RadarChart {
 
         val totalAmpountSpendEntries = categoryAggregations
                 .stream()
+                .filter { chargeCategoryAggregation -> chargeCategoryAggregation.totalAmount != null &&  chargeCategoryAggregation.chargeCategory != null}
                 .map { categoryAggregation -> RadarEntry(categoryAggregation.totalAmount!!.toFloat(), categoryAggregation.chargeCategory!!.name) }
                 .collect(Collectors.toList())
 
         val expectedEntries = categoryAggregations
                 .stream()
+                .filter { chargeCategoryAggregation -> chargeCategoryAggregation.totalAmount != null &&  chargeCategoryAggregation.chargeCategory != null}
                 .map { categoryAggregation -> RadarEntry(categoryAggregation.chargeCategory!!.expectedAmount!!.toFloat(), categoryAggregation.chargeCategory!!.name) }
                 .collect(Collectors.toList())
 
