@@ -1,15 +1,14 @@
 package com.example.financemanagement.domain
 
+import androidx.annotation.NonNull
 import androidx.room.*
 import java.math.BigDecimal
 
 @Entity(tableName = "chargeCategories")
-@SuppressWarnings(RoomWarnings.PRIMARY_KEY_FROM_EMBEDDED_IS_DROPPED)
 class ChargeCategory {
 
-    @PrimaryKey(autoGenerate = true)
-    var chargeCategoryId: Int? = null
-
+    @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "name")
     var name: String? = null
 

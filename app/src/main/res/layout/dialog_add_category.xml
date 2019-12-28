@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/allContent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:orientation="vertical"
+    android:background="@color/cardview_light_background"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp">
+
+    <RelativeLayout
+        android:id="@+id/dialogHeader"
+        android:padding="5dp"
+        android:layout_alignParentEnd="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="#79A2AF">
+
+        <TextView
+            android:id="@+id/clearNoteLabel"
+            android:text="New category was detected"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/contentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20sp"
+        android:layout_marginTop="34sp"
+        android:layout_marginEnd="20sp"
+        android:paddingStart="17sp"
+        android:paddingEnd="17sp"
+        android:paddingBottom="17sp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:id="@+id/categoryContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/categoryNameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5sp"
+                android:gravity="center"
+                android:text="Name: "
+                android:textColor="#000000"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/categoryNameInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/categoryNameLabel"
+                android:gravity="start|top"
+                android:hint="Food"
+                android:lines="1"
+                android:maxLines="1"
+                android:textColor="@color/cardview_dark_background"
+                android:textColorHint="#BCBCBC"
+                android:textSize="14sp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/expectedAmountContainer"
+            android:layout_below="@id/categoryContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/expectedAmountLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5sp"
+                android:gravity="center"
+                android:text="Expected amount: "
+                android:textColor="#000000"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/expectedAmountInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/expectedAmountLabel"
+                android:gravity="start|top"
+                android:inputType="number"
+                android:hint="200"
+                android:lines="1"
+                android:maxLines="1"
+                android:textColor="@color/cardview_dark_background"
+                android:textColorHint="#BCBCBC"
+                android:textSize="14sp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/expectedAmountContainer"
+            android:layout_marginStart="20sp"
+            android:layout_marginTop="10sp"
+            android:layout_marginEnd="10sp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/actionDeclineButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="start"
+                android:background="@drawable/center_button"
+                android:minWidth="84dp"
+                android:minHeight="23sp">
+
+
+                <TextView
+                    android:id="@+id/actionDeclineBtnLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Cancel"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="16sp"/>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/actionAcceptButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="end"
+                android:background="#ff0000"
+                android:minWidth="84dp"
+                android:minHeight="23dp">
+
+                <TextView
+                    android:id="@+id/actionAcceptBtnLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Save"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="16sp"/>
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

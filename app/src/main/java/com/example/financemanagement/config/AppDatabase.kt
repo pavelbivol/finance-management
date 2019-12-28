@@ -6,8 +6,9 @@ import androidx.room.RoomDatabase
 import androidx.room.Room
 import com.example.financemanagement.dao.ChargeDao
 import com.example.financemanagement.domain.Charge
+import com.example.financemanagement.domain.ChargeCategory
 
-@Database(entities = arrayOf(Charge::class), version = 1)
+@Database(entities = [Charge::class, ChargeCategory::class], version = 1)
 public abstract class AppDatabase : RoomDatabase() {
 
     abstract fun wordDao(): ChargeDao

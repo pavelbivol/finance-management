@@ -11,8 +11,8 @@ class Charge {
     @PrimaryKey(autoGenerate = true)
     var chargeId: Int? = null
 
-    @Embedded
-    var category: ChargeCategory? = null
+    @ColumnInfo(name = "category_name")
+    var categoryName: String? = null
 
     @ColumnInfo(name = "charge_description")
     var chargeDescription: String? = null
@@ -27,9 +27,9 @@ class Charge {
     constructor()
 
     @Ignore
-    constructor(chargeId: Int?, category: ChargeCategory?, chargeDescription: String?, chargeAmount: Long?, date: Date?) {
+    constructor(chargeId: Int?, categoryName: String?, chargeDescription: String?, chargeAmount: Long?, date: Date?) {
         this.chargeId = chargeId
-        this.category = category
+        this.categoryName = categoryName
         this.chargeDescription = chargeDescription
         this.chargeAmount = chargeAmount
         this.date = date

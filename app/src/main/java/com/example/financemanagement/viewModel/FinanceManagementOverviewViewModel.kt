@@ -12,7 +12,6 @@ import com.example.financemanagement.domain.ChargeCategoryAggregation
 import com.example.financemanagement.repository.ChargeRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
 
 
 class FinanceManagementOverviewViewModel(application: Application) : AndroidViewModel(application) {
@@ -22,16 +21,49 @@ class FinanceManagementOverviewViewModel(application: Application) : AndroidView
     init {
         val wordsDao = AppDatabase.getDatabase(application).wordDao()
         repository = ChargeRepository(wordsDao)
-        chargeList.postValue(hardCodedListOfCharges)
+        //chargeList.postValue(hardCodedListOfCharges)
         //allWords = repository.allWords
     }
 
-    fun insert (charge: Charge) {
-        println("somthing")
+
+
+    fun getChargeCategoryAgregations() : LiveData<List<ChargeCategoryAggregation>>{
+
+
+        return repository.getChargesAgregated()
+
+    }
+
+
+    fun insertCharge (charge: Charge) : LiveData<Boolean> {
+        val existCategory: MutableLiveData<Boolean> = MutableLiveData()
 
         viewModelScope.launch(Dispatchers.IO) {
-            repository.insert(charge)
+            repository.insertCharge(charge)
+
+            if (repository.getCategoryByName(charge.categoryName!!).isNullOrEmpty()) {
+                existCategory.postValue(false)
+            } else {
+                existCategory.postValue(true)
+            }
         }
+
+        return existCategory
+    }
+
+    fun insertCategory (chargeCategory: ChargeCategory) : LiveData<Boolean> {
+        val existCategory: MutableLiveData<Boolean> = MutableLiveData()
+
+        viewModelScope.launch(Dispatchers.IO) {
+            if (repository.getCategoryByName(chargeCategory.name!!).isNullOrEmpty()) {
+                repository.insertCategory(chargeCategory)
+                existCategory.postValue(false)
+            } else {
+                existCategory.postValue(true)
+            }
+        }
+
+        return existCategory
     }
 
     fun  getCharges () : LiveData<List<Charge>>? {
@@ -59,7 +91,7 @@ class FinanceManagementOverviewViewModel(application: Application) : AndroidView
 
 
 
-    private val hardCodedListOfCharges: List<ChargeCategoryAggregation>
+    /*private val hardCodedListOfCharges: List<ChargeCategoryAggregation>
         get() {
             val categoryAggregations = ArrayList<ChargeCategoryAggregation>()
             val chargeCategoryAggregation = ChargeCategoryAggregation()
@@ -114,5 +146,5 @@ class FinanceManagementOverviewViewModel(application: Application) : AndroidView
             categoryAggregations.add(chargeCategoryAggregation8)
 
             return categoryAggregations
-        }
+        }*/
 }

@@ -8,7 +8,7 @@ android {
     compileSdkVersion 29
     defaultConfig {
         applicationId "com.example.financemanagement"
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -38,6 +38,7 @@ repositories {
 
 
 dependencies {
+
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta4"
 
@@ -85,5 +86,7 @@ dependencies {
     //Recicle View
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0-beta01"
+
+    implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
 
 }

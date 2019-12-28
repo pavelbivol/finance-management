@@ -99,26 +99,30 @@ class ChargeCategoriesChart : RadarChart {
     }
 
     private fun setIAxisValue(categoryAggregations: List<ChargeCategoryAggregation>) {
+        if (categoryAggregations.isEmpty())
+            return
+
         xAxis
                 .setValueFormatter { value, axis ->
                     categoryAggregations[value.toInt() % categoryAggregations.size]
-                            .chargeCategory
-                            ?.name
+                            .categoryName
+
                 }
     }
 
     fun setData(categoryAggregations: List<ChargeCategoryAggregation>) {
 
+        //Todo insert chiar daca este una din valori este null ca sa pot adauga o categorie chiar daca nu are valoeare sau estimata
         val totalAmpountSpendEntries = categoryAggregations
                 .stream()
-                .filter { chargeCategoryAggregation -> chargeCategoryAggregation.totalAmount != null &&  chargeCategoryAggregation.chargeCategory != null}
-                .map { categoryAggregation -> RadarEntry(categoryAggregation.totalAmount!!.toFloat(), categoryAggregation.chargeCategory!!.name) }
+                .filter { chargeCategoryAggregation -> chargeCategoryAggregation.totalAmount != null &&  chargeCategoryAggregation.categoryName != null}
+                .map { categoryAggregation -> RadarEntry(categoryAggregation.totalAmount!!.toFloat(), categoryAggregation.categoryName) }
                 .collect(Collectors.toList())
 
         val expectedEntries = categoryAggregations
                 .stream()
-                .filter { chargeCategoryAggregation -> chargeCategoryAggregation.totalAmount != null &&  chargeCategoryAggregation.chargeCategory != null}
-                .map { categoryAggregation -> RadarEntry(categoryAggregation.chargeCategory!!.expectedAmount!!.toFloat(), categoryAggregation.chargeCategory!!.name) }
+                .filter { chargeCategoryAggregation -> chargeCategoryAggregation.expectedAmount != null &&  chargeCategoryAggregation.categoryName != null}
+                .map { categoryAggregation -> RadarEntry(categoryAggregation.expectedAmount!!.toFloat(), categoryAggregation.categoryName) }
                 .collect(Collectors.toList())
 
         val sets = ArrayList<IRadarDataSet>()
