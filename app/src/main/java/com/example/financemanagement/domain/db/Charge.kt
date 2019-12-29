@@ -1,4 +1,4 @@
-package com.example.financemanagement.domain
+package com.example.financemanagement.domain.db
 
 import androidx.room.*
 import com.example.financemanagement.converter.TimestampConverter

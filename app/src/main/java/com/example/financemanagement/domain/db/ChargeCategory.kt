@@ -1,8 +1,7 @@
-package com.example.financemanagement.domain
+package com.example.financemanagement.domain.db
 
 import androidx.annotation.NonNull
 import androidx.room.*
-import java.math.BigDecimal
 
 @Entity(tableName = "chargeCategories")
 class ChargeCategory {
@@ -18,6 +17,9 @@ class ChargeCategory {
     @ColumnInfo(name = "percentage")
     var percentage: Int = 0
 
+    @ColumnInfo(name = "iconTitle")
+    var iconTitle: String? = null
+
     constructor()
 
     @Ignore
@@ -32,9 +34,10 @@ class ChargeCategory {
     }
 
     @Ignore
-    constructor(name: String, expectedAmount: Long, percentage: Int) {
+    constructor(name: String?, expectedAmount: Long?, percentage: Int, iconTitle: String?) {
         this.name = name
         this.expectedAmount = expectedAmount
         this.percentage = percentage
+        this.iconTitle = iconTitle
     }
 }

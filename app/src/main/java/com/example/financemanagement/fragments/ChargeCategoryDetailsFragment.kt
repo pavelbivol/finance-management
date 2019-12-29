@@ -1,11 +1,14 @@
 package com.example.financemanagement.fragments
 
+import DialogRemoveItem
+import android.app.Dialog
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,21 +19,25 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.financemanagement.R
 import com.example.financemanagement.adapter.ChargeListAdapter
-import com.example.financemanagement.domain.Charge
+import com.example.financemanagement.dialog.DialogActionsListener
+import com.example.financemanagement.domain.db.Charge
+import com.example.financemanagement.domain.ChargeCategoryAggregation
+import com.example.financemanagement.fragments.interfaces.DeleteItemCalbackInterface
 import com.example.financemanagement.viewModel.ChargeCategoryDetailsViewModel
 import kotlinx.android.synthetic.main.fragment_charge_category_details.*
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class ChargeCategoryDetailsFragment : Fragment() {
+class ChargeCategoryDetailsFragment : Fragment(), DeleteItemCalbackInterface, DialogActionsListener{
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
     private val args: ChargeCategoryDetailsFragmentArgs by navArgs()
 
+    var viewModel: ChargeCategoryDetailsViewModel? = null
+    var chargesAdapter: ChargeListAdapter? = null
 
-    private val chargesAdapter = ChargeListAdapter(arrayListOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,17 +51,18 @@ class ChargeCategoryDetailsFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
 
         val view: View =  inflater.inflate(R.layout.fragment_charge_category_details, container, false)
-        val viewModel = ViewModelProviders.of(requireActivity())
+        viewModel = ViewModelProviders.of(requireActivity())
                 .get(ChargeCategoryDetailsViewModel::class.java)
         val categories: Array<String> = args.expenseCategories
 
-        configureReciclerView(view, categories, viewModel)
+        configureReciclerView(view, categories, viewModel!!)
 
         return view
     }
 
     private fun configureReciclerView(view: View, categories: Array<String>,
                               viewModel: ChargeCategoryDetailsViewModel){
+        chargesAdapter = ChargeListAdapter(context!!, arrayListOf(), this)
         val recycleView: RecyclerView = view.findViewById(R.id.charges)
         val dividerItemDecoration = DividerItemDecoration(recycleView.getContext(),
                 DividerItemDecoration.VERTICAL)
@@ -67,16 +75,36 @@ class ChargeCategoryDetailsFragment : Fragment() {
             adapter = chargesAdapter
         }
 
-        viewModel.getChargesByCategory(categories[0])?.observe(this, Observer { charges ->
+        /*viewModel.getChargesByCategory(categories[0])?.observe(this, Observer { charges ->
 
-            chargesAdapter.updateCharges(charges)
+            chargesAdapter!!.updateCharges(charges)
             recycleView.invalidate()
 
-            totalAmount.text = "You spent a total of  " + calcTotAmt(charges) + " euro this month "
+            if (activity != null && activity!!.actionBar != null) {
+                activity!!.actionBar!!.title = categories[0]
+            }
+        })*/
 
+
+        viewModel.getChargesAndIcons()?.observe(this, Observer { charges ->
+
+            chargesAdapter!!.updateCharges(charges)
+            recycleView.invalidate()
 
             if (activity != null && activity!!.actionBar != null) {
-                activity!!.actionBar!!.setTitle(categories[0])
+                activity!!.actionBar!!.title = categories[0]
+            }
+        })
+
+        viewModel.getChargeCategoryAgregations()?.observe(this, Observer { agregatedCategories ->
+
+            val categoryAgregated: ChargeCategoryAggregation? = agregatedCategories.find { agregatedCategory -> agregatedCategory.categoryName.equals(categories[0])}
+
+            spendAmount.text = "EURO" + categoryAgregated!!.totalAmount.toString()
+            estimatedAmount.text = "EURO" + categoryAgregated.expectedAmount.toString()
+
+            if (activity != null && activity!!.actionBar != null) {
+                activity!!.actionBar!!.title = categories[0]
             }
         })
     }
@@ -118,4 +146,19 @@ class ChargeCategoryDetailsFragment : Fragment() {
                     }
                 }
     }
+
+    override fun deleteItem(chargeId: Int) {
+        this.context?.let { it1 -> DialogRemoveItem(it1, this, chargeId) }!!.show()
+    }
+
+    override fun onAccept(dialog: Dialog, param: Any?) {
+
+        if (param is Int) {
+            viewModel!!.deleteItem(param)
+            chargesAdapter!!.removeItemByChargeid(param)
+            Toast.makeText(context,"Charge has removed.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    override fun onDecline(dialog: Dialog) {}
 }

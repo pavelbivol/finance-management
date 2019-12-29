@@ -6,8 +6,7 @@ import android.text.TextWatcher
 import android.view.Window
 import com.example.financemanagement.R
 import com.example.financemanagement.dialog.DialogActionsListener
-import com.example.financemanagement.domain.Charge
-import com.example.financemanagement.domain.ChargeCategory
+import com.example.financemanagement.domain.db.Charge
 import kotlinx.android.synthetic.main.dialog_add_charge.*
 import java.util.*
 

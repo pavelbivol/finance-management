@@ -46,7 +46,7 @@ class ChargeCategoriesChart : RadarChart {
     }
 
     private fun configureWeb() {
-        setBackgroundColor(Color.rgb(60, 65, 82))
+        //setBackgroundColor(Color.rgb(60, 65, 82))
         description.isEnabled = false
         webLineWidth = 1f
         webColor = Color.LTGRAY

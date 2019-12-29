@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
+    android:background="@drawable/background_gradient"
     tools:context=".fragments.ChargeCategoryDetailsFragment">
 
 
@@ -27,22 +27,77 @@
             app:layout_scrollFlags="scroll|snap"
             android:fitsSystemWindows="true"
             app:contentScrim="@color/colorHtmlWhiteSmoke"
-            android:background="@drawable/hero_background"
             app:expandedTitleMarginStart="16dp"
             app:expandedTitleMarginTop="16dp"
             app:expandedTitleGravity="top"
-            app:title="Food">
+            app:title="Food"
+            android:background="#22605D">
 
-            <TextView
-                android:id="@+id/totalAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="16dp"
-                android:layout_marginBottom="16dp"
-                android:textSize="18sp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/top_contect-container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="60dp"
+                android:padding="16dp">
 
-            </TextView>
+
+
+                <TextView
+                    android:id="@+id/estimatedAmountLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:textSize="16sp"
+                    android:text="ESTIMATED">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/estimatedAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/estimatedAmountLabel"
+                    android:textSize="24sp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/spendAmountLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:textSize="16sp"
+                    android:text="SPEND">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/spendAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spendAmountLabel"
+                    android:textSize="24sp">
+
+                </TextView>
+
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/ic_numbered_view"
+                    android:tint="@color/colorWhite">
+
+                </ImageView>
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <androidx.appcompat.widget.Toolbar
@@ -50,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="59dp"
                 android:background="#79A2AF"
-                android:visibility="visible"
+                android:visibility="invisible"
                 app:layout_collapseMode="pin"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:popupTheme="@style/AppTheme" />

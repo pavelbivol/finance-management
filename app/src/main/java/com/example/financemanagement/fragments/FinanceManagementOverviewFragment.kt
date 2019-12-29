@@ -20,8 +20,7 @@ import com.example.financemanagement.chart.listeners.ChartValueSelectListener
 import com.example.financemanagement.viewModel.FinanceManagementOverviewViewModel
 import androidx.lifecycle.Observer
 import com.example.financemanagement.dialog.DialogActionsListener
-import com.example.financemanagement.domain.Charge
-import com.example.financemanagement.domain.ChargeCategory
+import com.example.financemanagement.domain.db.Charge
 import com.example.financemanagement.domain.DialogAddChargeCategoryResponse
 
 private const val ARG_PARAM1 = "param1"
@@ -61,6 +60,7 @@ class FinanceManagementOverviewFragment : Fragment(), DialogActionsListener {
 
         viewModel?.getChargeCategoryAgregations()?.observe(this, Observer { charges ->
             chargeCategoriesChart.setData(charges)
+
         })
 
         viewModel?.getCharges()?.observe(this, Observer { charges ->
